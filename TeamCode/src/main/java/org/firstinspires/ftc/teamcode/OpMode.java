@@ -136,4 +136,6 @@ public class OpMode extends com.qualcomm.robotcore.eventloop.opmode.OpMode
     public void stop() {
     }
 
+    public static class teleOp {
+    }
 }
