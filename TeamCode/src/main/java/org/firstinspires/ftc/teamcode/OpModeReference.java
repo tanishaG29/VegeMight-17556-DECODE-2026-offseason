@@ -1,0 +1,101 @@
+package org.firstinspires.ftc.teamcode;
+import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.pedropathing.geometry.Pose;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.common.subsystems.DriveTrain;
+import org.firstinspires.ftc.teamcode.common.subsystems.Flag;
+import org.firstinspires.ftc.teamcode.common.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.common.subsystems.LightIndicators;
+import org.firstinspires.ftc.teamcode.common.subsystems.Limelight;
+import org.firstinspires.ftc.teamcode.common.subsystems.Outtake;
+import org.firstinspires.ftc.teamcode.common.subsystems.PedroPathing;
+//import org.firstinspires.ftc.teamcode.common.subsystems.Transfer;
+import org.firstinspires.ftc.teamcode.common.util.Globals;
+import org.firstinspires.ftc.teamcode.common.util.ShooterCalcs;
+import org.firstinspires.ftc.teamcode.common.util.VegeKalmanFilter;
+import org.firstinspires.ftc.teamcode.common.util.UpdateAndPowerScheduler;
+
+public class OpModeReference {
+    private static OpModeReference instance = null;
+    HardwareMap hardwareMap;
+    GamepadEx gamePad1;
+    GamepadEx gamePad2;
+    Telemetry telemetry;
+    public boolean isRedAlliance = true;
+    public Globals globalsSubSystem;
+    public VegeKalmanFilter kalmanfilter;
+    public DriveTrain driveTrainSubSystem;
+    public Intake intakeSubSystem;
+    public Outtake outtakeSubSystem;
+    public Limelight limelightSubsystem;
+
+    public ShooterCalcs shooterCalcs;
+    //public Transfer transfer;
+    public Flag flagSubsystem;
+    public LightIndicators lightIndicators;
+    public UpdateAndPowerScheduler updateAndPowerScheduler;
+    public PedroPathing pedroPathing;
+
+    private Pose robotPose = new Pose(0, 0, 0);
+
+
+    public static OpModeReference getInstance() {
+        if (instance == null) instance = new OpModeReference();
+        return instance;
+    }
+
+    public void initHardware(final HardwareMap hardwareMap, GamepadEx gamepad1, GamepadEx gamepad2, Telemetry telemetry, double xStart, double yStart, double headingStart, boolean visionTesting) {
+        this.hardwareMap = hardwareMap;
+        this.gamePad1 = gamepad1;
+        this.gamePad2 = gamepad2;
+        this.telemetry = telemetry;
+
+        globalsSubSystem = new Globals();
+        limelightSubsystem = new Limelight();
+        pedroPathing = new PedroPathing();
+        kalmanfilter= new VegeKalmanFilter();
+        shooterCalcs = new ShooterCalcs();
+        if (!visionTesting) {
+            driveTrainSubSystem = new DriveTrain();
+            intakeSubSystem = new Intake();
+            outtakeSubSystem = new Outtake();
+            //transfer = new Transfer();
+            flagSubsystem = new Flag();
+            lightIndicators = new LightIndicators();
+        }
+    }
+
+    public void nullify() {
+        instance = null;
+    }
+
+    public HardwareMap getHardwareMap() {
+        return this.hardwareMap;
+    }
+
+    public GamepadEx getGamePad1() {
+        return gamePad1;
+    }
+
+    public GamepadEx getGamePad2() {
+        return gamePad2;
+    }
+
+    public Telemetry getTelemetry() {
+        return telemetry;
+    }
+
+    public boolean isBusy() {
+        return intakeSubSystem.isBusy();
+    }
+
+    public void updateGlobalRobotPose(Pose newRobotPose) {
+        robotPose = newRobotPose;
+    }
+
+    public Pose getGlobalRobotPose() {
+        return robotPose;
+    }
+}
