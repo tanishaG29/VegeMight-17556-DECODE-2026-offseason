@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+import com.seattlesolvers.solverslib.command.CommandOpMode;
 
 /*
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -51,7 +52,7 @@ import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="Basic: Iterative OpMode", group="Iterative OpMode")
 @Disabled
-public class teleop extends com.qualcomm.robotcore.eventloop.opmode.OpMode
+public class teleop extends CommandOpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -62,13 +63,13 @@ public class teleop extends com.qualcomm.robotcore.eventloop.opmode.OpMode
      * Code to run ONCE when the driver hits INIT
      */
     @Override
-    public void init() {
+    public void initialize() {
         telemetry.addData("Status", "Initialized");
 
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
+        leftDrive = hardwareMap.get(DcMotor.class, "left_drive");
         rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
@@ -81,26 +82,12 @@ public class teleop extends com.qualcomm.robotcore.eventloop.opmode.OpMode
         telemetry.addData("Status", "Initialized");
     }
 
-    /*
-     * Code to run REPEATEDLY after the driver hits INIT, but before they hit START
-     */
-    @Override
-    public void init_loop() {
-    }
-
-    /*
-     * Code to run ONCE when the driver hits START
-     */
-    @Override
-    public void start() {
-        runtime.reset();
-    }
 
     /*
      * Code to run REPEATEDLY after the driver hits START but before they hit STOP
      */
     @Override
-    public void loop() {
+    public void run() {
         // Setup a variable for each drive wheel to save power level for telemetry
         double leftPower;
         double rightPower;
@@ -133,7 +120,7 @@ public class teleop extends com.qualcomm.robotcore.eventloop.opmode.OpMode
      * Code to run ONCE after the driver hits STOP
      */
     @Override
-    public void stop() {
+    public void end() {
     }
 
 }
