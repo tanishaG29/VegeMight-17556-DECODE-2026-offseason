@@ -10,14 +10,19 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.teamcode.Essentials.GlobalsNew;
+import org.firstinspires.ftc.teamcode.Essentials.backwardStateComm;
+import org.firstinspires.ftc.teamcode.Essentials.forwardStateComm;
 import org.firstinspires.ftc.teamcode.Essentials.intakeComm;
 import org.firstinspires.ftc.teamcode.Subsystems.dtSubSystem;
 import org.firstinspires.ftc.teamcode.Subsystems.intakeSubSystem;
+import org.firstinspires.ftc.teamcode.Subsystems.transferSubSystem;
 
 public class newTeleop extends CommandOpMode {
     dtSubSystem driveTrain;
     GamepadEx gamePad1;
     intakeSubSystem intakeSub;
+    transferSubSystem trannyNanny;
 
 
     @Override
@@ -40,10 +45,24 @@ public class newTeleop extends CommandOpMode {
         //in initalize phase becasue it is like setting an alarm once but it runs multiple times.
 
         //section 4 which binds everything to buttons i think
+        //here im putting all the manual buttons to control all the individual parts if u dont want to switch the state also cause i cbf to delete this beautiful work
         gamePad1.getGamepadButton(GamepadKeys.Button.X)
                 .whenPressed(new InstantCommand(() -> driveTrain.resetHeading(), driveTrain));
 
         gamePad1.getGamepadButton(GamepadKeys.Button.A).whenPressed(new intakeComm(intakeSub));
-        gamePad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenHeld(new InstantCommand(intakeSub::spin, (Subsystem) intakeSub));
+        gamePad1.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new InstantCommand(intakeSub::spin, (Subsystem) intakeSub));
+        gamePad1.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenHeld(new InstantCommand(trannyNanny::conveyor, (Subsystem) trannyNanny));
         //i think that when this is held it will spin the axel for the intake as long as you want
+
+        //this is to switch the states forwards and backwards
+        //cycle ->>> :
+        gamePad1.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).whenPressed(new forwardStateComm());
+        //cycle <<<- :
+        gamePad1.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).whenPressed(new backwardStateComm());
+        //emergency stop:
+        gamePad1.getGamepadButton(GamepadKeys.Button.Y).whenPressed(new InstantCommand(() -> GlobalsNew.state = GlobalsNew.RobotState.STOP));
+
+
+
+
     }}
