@@ -11,6 +11,6 @@ public class GlobalsNew {
 
     //a single truth for the entire robot. it knows that the first state is stop
     public static RobotState state = RobotState.STOP;
-
+    //aagaga
 
 }
