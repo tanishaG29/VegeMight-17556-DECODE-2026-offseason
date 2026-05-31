@@ -26,7 +26,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
+/*
 package org.firstinspires.ftc.teamcode.opModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -49,9 +49,8 @@ import com.seattlesolvers.solverslib.command.CommandOpMode;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
-
+/*
 @TeleOp(name="Basic: Iterative OpMode", group="Iterative OpMode")
-@Disabled
 public class teleop extends CommandOpMode
 {
     // Declare OpMode members.
@@ -62,6 +61,7 @@ public class teleop extends CommandOpMode
     /*
      * Code to run ONCE when the driver hits INIT
      */
+/*
     @Override
     public void initialize() {
         telemetry.addData("Status", "Initialized");
@@ -86,6 +86,7 @@ public class teleop extends CommandOpMode
     /*
      * Code to run REPEATEDLY after the driver hits START but before they hit STOP
      */
+/*
     @Override
     public void run() {
         // Setup a variable for each drive wheel to save power level for telemetry
@@ -119,8 +120,10 @@ public class teleop extends CommandOpMode
     /*
      * Code to run ONCE after the driver hits STOP
      */
+/*
     @Override
     public void end() {
     }
 
 }
+*/

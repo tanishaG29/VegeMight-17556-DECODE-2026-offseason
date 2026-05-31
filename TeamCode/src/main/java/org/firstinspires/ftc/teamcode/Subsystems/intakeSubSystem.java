@@ -6,6 +6,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
+
+import org.firstinspires.ftc.teamcode.Essentials.GlobalsNew;
+
 /*
 fields (hardware + state)
     ↓
@@ -34,7 +37,21 @@ public class intakeSubSystem extends SubsystemBase {
     }
 
     public void periodic(){
-        //nothign really that i can think of... please tell me if im missing something :)
+        //gonna put in the state changes
+        switch (GlobalsNew.state){
+            case STOP:
+                intakeMotor.set(0);
+                break;
+            case SCORING: break;
+            case INTAKE:
+                intakeMotor.set(1);
+                break;
+            case TRANSFER:
+                intakeMotor.set(0.8);
+            break;
+            case DRIVE: break;
+        }
+
     }
 
     public void spin(){

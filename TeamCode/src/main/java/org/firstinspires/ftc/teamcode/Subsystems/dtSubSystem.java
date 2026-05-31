@@ -10,6 +10,8 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
+import org.firstinspires.ftc.teamcode.Essentials.GlobalsNew;
+
 public class dtSubSystem extends SubsystemBase {
     public MotorEx FL;
     public MotorEx FR;
@@ -56,7 +58,20 @@ public class dtSubSystem extends SubsystemBase {
     @Override
     public void periodic() {
        //add anything that needs to be run on a loop like getting sensor readings
-    }
+        //rn we want to make it check which subsystem its in all the time in case it has been switched
+        //we want the drivetrain to be contrlled by inputs so keep it in the default command in teleop (i think) but want it to stop when its in idle so stop it here
+        switch (GlobalsNew.state){
+            case STOP:
+                driveTrain.stop();
+                rightSideHoes.set(0);
+                leftSideBros.set(0); //just doing this if the stop doesnt work
+                break;
+            case DRIVE: break;
+            case INTAKE: break;
+            case SCORING: break;
+            case TRANSFER: break;
+
+    }}
 
     public void driveRobotCentric(double strafe, double forward, double rotate) {
         driveTrain.driveRobotCentric(strafe, forward, rotate);
@@ -70,7 +85,7 @@ public class dtSubSystem extends SubsystemBase {
     public void resetHeading(){
     imu.resetYaw(); //whenever you have changed the position of the robot
     }
-}
+    }
 
 /*
 fields (hardware + state)

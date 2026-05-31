@@ -1,4 +1,4 @@
-
+/*
 package org.firstinspires.ftc.teamcode.Essentials;
 
 import com.qualcomm.hardware.limelightvision.Limelight3A;
@@ -7,7 +7,7 @@ import com.seattlesolvers.solverslib.command.Subsystem;
 import com.seattlesolvers.solverslib.gamepad.GamepadEx;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Subsystems.driveTrainSubSystem;
+import org.firstinspires.ftc.teamcode.Subsystems.dtSubSystem;
 import org.firstinspires.ftc.teamcode.Subsystems.intakeSubSystem;
 import org.firstinspires.ftc.teamcode.Subsystems.transferSubSystem;
 import org.firstinspires.ftc.teamcode.Subsystems.outtakeSubSystem;
@@ -15,20 +15,20 @@ import org.firstinspires.ftc.teamcode.Subsystems.outtakeSubSystem;
 
 public class    OpModeReference {
     private static OpModeReference instance = null;
-    HardwareMap hardwareMap;
+    HardwareMap hMap;
     GamepadEx gamePad1;
     GamepadEx gamePad2;
     Telemetry telemetry;
     public boolean isRedAlliance = true;
-    public Globals globalsSubSystem;
+
     public Subsystem driveTrainSubsystem;
     public Subsystem intakeTrainSubsystem;
     public Subsystem LimeLightTrainSubsystem;
     public Subsystem outtakeSubsystem;
     public Subsystem transferSubsystem;
-    public driveTrainSubSystem driveTrain;
+    public dtSubSystem driveTrain;
     public intakeSubSystem intake;
-
+    public GlobalsNew globalsSubSystem;
     public outtakeSubSystem shooter;
     public Limelight3A limeLightSubSystem;
     public transferSubSystem transfer;
@@ -44,16 +44,15 @@ public class    OpModeReference {
     }
 
     public void initHardware(final HardwareMap hardwareMap, GamepadEx gamepad1, GamepadEx gamepad2, Telemetry telemetry, double xStart, double yStart, double headingStart, boolean visionTesting) {
-        this.hardwareMap = hardwareMap;
         this.gamePad1 = gamepad1;
         this.gamePad2 = gamepad2;
         this.telemetry = telemetry;
 
-        globalsSubSystem = new Globals();
+        globalsSubSystem = new GlobalsNew();
         //limelightSubsystem = new Limelight();
         //shooterCalcs = new ShooterCalcs();
         if (!visionTesting) {
-            driveTrain = new driveTrainSubSystem();
+            driveTrain = new dtSubSystem();
             intake = new intakeSubSystem();
             shooter = new outtakeSubSystem();
             transfer = new transferSubSystem();
@@ -67,9 +66,7 @@ public class    OpModeReference {
         instance = null;
     }
 
-    public HardwareMap getHardwareMap() {
-        return this.hardwareMap;
-    }
+
 
     public GamepadEx getGamePad1() {
         return gamePad1;
@@ -81,17 +78,5 @@ public class    OpModeReference {
 
     public Telemetry getTelemetry() {
         return telemetry;
-    }
-
-    public boolean isBusy() {
-        return intakeSubSystem.isBusy();
-    }
-
-    public void updateGlobalRobotPose(Pose newRobotPose) {
-        robotPose = newRobotPose;
-    }
-
-    public Pose getGlobalRobotPose() {
-        return robotPose;
-    }
-}
+    }}
+*/
