@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.PIDCoefficients;
 import com.seattlesolvers.solverslib.command.Command;
 import com.seattlesolvers.solverslib.command.SubsystemBase;
 
+import org.firstinspires.ftc.teamcode.Essentials.GlobalsNew;
+
 public class outtakeSubSystem extends SubsystemBase{
     public MotorEx shooterM;
     public HardwareMap hMap;
@@ -21,7 +23,31 @@ public class outtakeSubSystem extends SubsystemBase{
     public void initialize(){
 
     }
+    public void periodic(){
+        //gonna put in the state changes
+        switch (GlobalsNew.state){
+            case STOP:
+                shooterM.set(0);
+                break;
+            case SCORING: break;
+            case INTAKE:
+                shooterM.set(1);
+                break;
+            case TRANSFER:
+                shooterM.set(0.8);
+                break;
+            case DRIVE: break;
+}}
+
+    public void shooterSpin(){
+    shooterM.set(0.8);
+    }
+
+    public void stop(){
+        shooterM.set(0);
+    }
 }
+
 
 /*
 fields (hardware + state)

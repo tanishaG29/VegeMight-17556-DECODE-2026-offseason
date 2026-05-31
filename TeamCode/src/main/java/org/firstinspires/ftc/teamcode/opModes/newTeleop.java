@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.opModes;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.RunCommand;
@@ -9,6 +12,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.seattlesolvers.solverslib.gamepad.GamepadKeys;
 
 import org.firstinspires.ftc.teamcode.Essentials.GlobalsNew;
 import org.firstinspires.ftc.teamcode.Essentials.backwardStateComm;
@@ -16,6 +20,7 @@ import org.firstinspires.ftc.teamcode.Essentials.forwardStateComm;
 import org.firstinspires.ftc.teamcode.Essentials.intakeComm;
 import org.firstinspires.ftc.teamcode.Subsystems.dtSubSystem;
 import org.firstinspires.ftc.teamcode.Subsystems.intakeSubSystem;
+import org.firstinspires.ftc.teamcode.Subsystems.outtakeSubSystem;
 import org.firstinspires.ftc.teamcode.Subsystems.transferSubSystem;
 
 public class newTeleop extends CommandOpMode {
@@ -23,6 +28,7 @@ public class newTeleop extends CommandOpMode {
     GamepadEx gamePad1;
     intakeSubSystem intakeSub;
     transferSubSystem trannyNanny;
+    outtakeSubSystem shooter;
 
 
     @Override
@@ -30,6 +36,7 @@ public class newTeleop extends CommandOpMode {
         driveTrain = new dtSubSystem(hardwareMap);
         gamePad1 = new GamepadEx(gamepad1);
         intakeSub = new intakeSubSystem(hardwareMap);
+        shooter = new outtakeSubSystem(hardwareMap);
 
         //stage 3 setting default commands (just driving rn cause we only want it driving forever)
         driveTrain.setDefaultCommand(new RunCommand(() ->
@@ -52,6 +59,7 @@ public class newTeleop extends CommandOpMode {
         gamePad1.getGamepadButton(GamepadKeys.Button.A).whenPressed(new intakeComm(intakeSub));
         gamePad1.getGamepadButton(GamepadKeys.Button.DPAD_UP).whenHeld(new InstantCommand(intakeSub::spin, (Subsystem) intakeSub));
         gamePad1.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT).whenHeld(new InstantCommand(trannyNanny::conveyor, (Subsystem) trannyNanny));
+        gamePad1.getGamepadButton(GamepadKeys.Button.B).whenPressed(new InstantCommand(shooter::shooterSpin,(SubSystem) shooter));
         //i think that when this is held it will spin the axel for the intake as long as you want
 
         //this is to switch the states forwards and backwards
